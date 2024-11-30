@@ -89,7 +89,7 @@ func scaffoldingFilesAndFolders(basePath string, removeList []string) error {
 				}
 			}
 			if strings.Contains(contentStr, "APP_NAME=goxpress") {
-				replacedContent := strings.ReplaceAll(contentStr, "APP_NAME=goxpress", basePath)
+				replacedContent := strings.ReplaceAll(contentStr, "APP_NAME=goxpress", "APP_NAME="+basePath)
 				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
 				if err != nil {
 					return err
