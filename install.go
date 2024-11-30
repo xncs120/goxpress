@@ -11,7 +11,7 @@ import (
 var (
 	repoURL        = "https://github.com/xncs120/goxpress.git"
 	oldProjectName = "github.com/xncs120/goxpress"
-	excludeList    = []string{
+	removeList     = []string{
 		"install.go",
 		"LICENSE",
 		"README.md",
@@ -39,7 +39,7 @@ func main() {
 	}
 
 	fmt.Println("=> Scaffolding files and folders")
-	if err := scaffoldingFilesAndFolders(newProjectName, excludeList); err != nil {
+	if err := scaffoldingFilesAndFolders(newProjectName, removeList); err != nil {
 		fmt.Printf("\tError when scaffolding up files and folders: %v\n", err)
 		os.Exit(1)
 	}
@@ -54,7 +54,7 @@ func gitClone(repoURL, folder string) error {
 	return cmd.Run()
 }
 
-func scaffoldingFilesAndFolders(basePath string, excludeList []string) error {
+func scaffoldingFilesAndFolders(basePath string, removeList []string) error {
 	return filepath.Walk(basePath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -64,32 +64,36 @@ func scaffoldingFilesAndFolders(basePath string, excludeList []string) error {
 			return filepath.SkipDir
 		}
 
-		b, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-
-		contentStr := string(b)
-		if strings.Contains(contentStr, oldProjectName) {
-			replacedContent := strings.ReplaceAll(contentStr, oldProjectName, basePath)
-			file, err := os.OpenFile(path, os.O_WRONLY|os.O_TRUNC, 0644)
-			if err != nil {
-				return err
-			}
-			defer file.Close()
-			_, err = file.WriteString(replacedContent)
-			if err != nil {
-				return err
-			}
-		}
-
 		relPath, _ := filepath.Rel(basePath, path)
-		for _, exclude := range excludeList {
+		for _, exclude := range removeList {
 			if relPath == exclude || filepath.Base(relPath) == exclude {
 				if info.IsDir() {
 					return os.RemoveAll(path)
 				}
 				return os.Remove(path)
+			}
+		}
+
+		if !info.IsDir() {
+			content, err := os.ReadFile(path)
+			if err != nil {
+				return err
+			}
+
+			contentStr := string(content)
+			if strings.Contains(contentStr, oldProjectName) {
+				replacedContent := strings.ReplaceAll(contentStr, oldProjectName, basePath)
+				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
+				if err != nil {
+					return err
+				}
+			}
+			if strings.Contains(contentStr, "APP_NAME=goxpress") {
+				replacedContent := strings.ReplaceAll(contentStr, "APP_NAME=goxpress", basePath)
+				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
+				if err != nil {
+					return err
+				}
 			}
 		}
 
