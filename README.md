@@ -1,5 +1,5 @@
 # GoXpress
-GoXpress provides an opinionated architecture for Go server projects, designed to facilitate rapid development of your API applications. It is bundled with variety of framework and packages to streamline your development process. While this setup is comprehensive, you are not required to utilize all included packages; feel free to use this repository as a reference to tailor your project according to your specific needs.
+GoXpress provides an opinionated architecture for Go server projects, designed to facilitate rapid development of your API applications. It is bundled with variety of framework and packages to streamline your development process. While this setup is comprehensive, you are not required to utilize all included packages. Feel free to use this repository as a reference to tailor your project according to your specific needs.
 |Stack|Package|
 |-|-|
 |Go `v1.23.2`|Echo `v4.12.0`|
