@@ -8,13 +8,13 @@ GoXpress provides an opinionated architecture for Go server projects, designed t
 ||Air (Go Hot-Reload)|
 
 ## Pre-Build Functions
-[x] Makefile (Docker command, Migration command, Go command)
-[x] Easy development/production enviroment setup (Env configs, Docker configs, Air configs)
-[x] Go embeded assets (statics, templates)
-[x] Home page, Register user page, Sample api schema page
-[x] Api routes for user
-[x] Initial User table
-[x] Simple Jwt authentication
+- [x] Makefile (Docker command, Migration command, Go command)
+- [x] Easy development/production enviroment setup (Env configs, Docker configs, Air configs)
+- [x] Go embeded assets (statics, templates)
+- [x] Home page, Register user page, Sample api schema page
+- [x] Api routes for user
+- [x] Initial User table
+- [x] Simple Jwt authentication
 
 ## Getting started
 ### Installation
@@ -22,7 +22,7 @@ GoXpress provides an opinionated architecture for Go server projects, designed t
 2. Go into project folder. (Linux Example: /www)
 ```sh
 cd wwww
-go run github.com/xncs120/goxpress@master project-name
+go run github.com/xncs120/goxpress@main project-name
 ```
 ### Setting up enviroment configs
 1. Modify .env as necessary to suit your configuration requirements. There are several important key:
@@ -35,11 +35,11 @@ make docker-db-up
 make docker-app-up
 ```
 ### Migration
-1. Access into docker terminal and do users table migration using goose. The reason migration need to be run manually is because there might be time that some table is too large to alter and will take really long time to migrate which cause deployment of app slow. (P.S: Example of users table shown is pre-builded)
+1. Access into docker terminal and do users table migration using goose. The reason migration need to be executed manually in some cases because certain tables may be exceptionally large, making alterations time-consuming. This can significantly delay the application's deployment process. (P.S: Example of users table shown is pre-builded)
 ```sh
 make goose-create add_users_table
 
-// go to example: ./database/migrations/20241015105036_add_users_table.sql
+// go to example: ./goose/migrations/20241015105036_add_users_table.sql
 
 -- +goose Up
 CREATE TABLE IF NOT EXISTS users(

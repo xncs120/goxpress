@@ -5,10 +5,10 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"goxpress/internal/base/config"
-	"goxpress/internal/base/database"
-	"goxpress/internal/base/resource"
-	"goxpress/internal/base/routes"
+	"github.com/xncs120/goxpress/internal/base/config"
+	"github.com/xncs120/goxpress/internal/base/database"
+	"github.com/xncs120/goxpress/internal/base/resource"
+	"github.com/xncs120/goxpress/internal/base/routes"
 )
 
 func main() {

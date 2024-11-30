@@ -4,9 +4,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 
-	"goxpress/internal/base/auth"
-	"goxpress/internal/landing"
-	"goxpress/internal/user"
+	"github.com/xncs120/goxpress/internal/base/auth"
+	"github.com/xncs120/goxpress/internal/landing"
+	"github.com/xncs120/goxpress/internal/user"
 )
 
 type Routes struct {

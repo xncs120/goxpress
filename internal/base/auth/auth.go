@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 
-	"goxpress/internal/base/config"
+	"github.com/xncs120/goxpress/internal/base/config"
 )
 
 func JWTAuthorization() echo.MiddlewareFunc {

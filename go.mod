@@ -1,4 +1,4 @@
-module goxpress
+module github.com/xncs120/goxpress
 
 go 1.23
 

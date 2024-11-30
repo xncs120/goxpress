@@ -9,8 +9,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 
-	"goxpress/internal/base/auth"
-	"goxpress/internal/base/config"
+	"github.com/xncs120/goxpress/internal/base/auth"
+	"github.com/xncs120/goxpress/internal/base/config"
 )
 
 type Handler struct {

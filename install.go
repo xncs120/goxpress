@@ -10,7 +10,7 @@ import (
 
 var (
 	repoURL        = "https://github.com/xncs120/goxpress.git"
-	oldProjectName = "goxpress"
+	oldProjectName = "github.com/xncs120/goxpress"
 	excludeList    = []string{
 		"install.go",
 		"LICENSE",
@@ -20,7 +20,7 @@ var (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run github.com/xncs120/goxpress@master project-name")
+		fmt.Println("Usage: go run github.com/xncs120/goxpress@main project-name")
 		os.Exit(1)
 	}
 	newProjectName := os.Args[1]
@@ -58,6 +58,10 @@ func scaffoldingFilesAndFolders(basePath string, excludeList []string) error {
 	return filepath.Walk(basePath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
+		}
+
+		if info.IsDir() && filepath.Base(path) == "assets" {
+			return filepath.SkipDir
 		}
 
 		b, err := os.ReadFile(path)

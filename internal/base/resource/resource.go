@@ -9,7 +9,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"goxpress/assets"
+	"github.com/xncs120/goxpress/assets"
 )
 
 func StaticHandler() echo.HandlerFunc {

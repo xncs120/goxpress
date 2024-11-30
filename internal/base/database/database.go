@@ -7,7 +7,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"goxpress/internal/base/config"
+	"github.com/xncs120/goxpress/internal/base/config"
 )
 
 type Pgsql struct {
