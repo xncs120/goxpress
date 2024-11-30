@@ -1,0 +1,12 @@
+-- +goose Up
+CREATE TABLE IF NOT EXISTS users(
+	id SERIAL PRIMARY KEY,
+	username TEXT UNIQUE NOT NULL,
+	email TEXT UNIQUE NOT NULL,
+	password TEXT NOT NULL,
+	status INTEGER NOT NULL DEFAULT 1,
+	created_at TIMESTAMP NULL
+);
+
+-- +goose Down
+DROP TABLE IF EXISTS users;

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs</title>
+    <link rel="stylesheet" href="/statics/css/bootstrap533.css">
+    <link rel="stylesheet" href="/statics/css/styles.css">
+    <style>.pr-2 {padding-right: 8px;}</style>
+</head>
+
+<body>
+    <div class="container pt-3">
+        <h4>Schemas</h4>
+        <hr />
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <span>/api</span>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <span class="badge bg-warning">POST</span> <span>/register</span>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Create user account</h6>
+                <table>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">*username</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">*email</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">*password</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="badge bg-warning">POST</span> <span>/token</span>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Generate token</h6>
+                <table>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">*email</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">*password</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <span>/api/v1</span><span style="float: right">&#128274;</span>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <span>/users</span>
+            </div>
+
+            <div class="card-header">
+                <span class="badge bg-success">GET</span> <span>/{id}</span>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Get user</h6>
+                <table>
+                    <tr>
+                        <td class="pr-2"><b>path</b></td>
+                        <td class="pr-2">*id</td>
+                        <td class="pr-2">integer</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card-header">
+                <span class="badge bg-info">PUT</span> <span>/{id}</span>
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">Update user</h6>
+                <table>
+                    <tr>
+                        <td class="pr-2"><b>path</b></td>
+                        <td class="pr-2">*id</td>
+                        <td class="pr-2">integer</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">*password</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">username</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">email</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-2"><b>json</b></td>
+                        <td class="pr-2">new_password</td>
+                        <td class="pr-2">string</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

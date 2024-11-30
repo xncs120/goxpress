@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/statics/css/bootstrap533.css">
+    <link rel="stylesheet" href="/statics/css/styles.css">
+</head>
+
+<body class="full-view-body">
+    <div style="width: 350px;">
+        <form id="register-form">
+            <h1 class="h3 mb-3 fw-large">Create User</h1>
+
+            <div class="alert alert-danger d-none" role="alert" id="error-messages"></div>
+
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+                <label for="password">Password</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword" name="cpassword">
+                <label for="cpassword">Confirm Password</label>
+            </div>
+
+            <button class="btn btn-primary w-100" type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        const registerForm = document.getElementById('register-form');
+        const alertDiv = document.getElementById('error-messages');
+
+        registerForm.addEventListener('submit', async (e) => {
+            clearErrorMessages(alertDiv);
+
+            const formData = new FormData(registerForm);
+
+            if (formData.get('password') !== formData.get('cpassword')) {
+                showErrorMessages(alertDiv, ["Confirm Password not match"]);
+                return;
+            }
+
+            e.preventDefault();
+
+            const data = {
+                username: formData.get('username'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+            };
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    window.location.replace('/docs');
+                } else {
+                    showErrorMessages(alertDiv, [result.error]);
+                }
+            } catch (error) {
+                showErrorMessages(alertDiv, [error.message]);
+            }
+        });
+
+        function clearErrorMessages(div) {
+            div.innerHTML = '';
+            div.classList.add('d-none');
+        }
+
+        function showErrorMessages(div, messages) {
+            messages.forEach(message => {
+                const span = document.createElement('span');
+                span.textContent = message;
+                div.appendChild(span);
+                div.appendChild(document.createElement('br'));
+            });
+            div.classList.remove('d-none');
+        }
+    </script>
+</body>
+</html>
