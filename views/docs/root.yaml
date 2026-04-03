@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: goxpress API
+  version: 1.0.0
+  description: goxpress api documentation.
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      tags: [System]
+      responses:
+        '200':
+          description: Server is up and running
+
+  /api/register:
+    post:
+      summary: Register a new user
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User created successfully
+
+  /api/token:
+    post:
+      summary: Login to get JWT token
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Token generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
+  /api/v1/users/{id}:
+    get:
+      summary: Get user by ID
+      tags: [Users]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User data retrieved
+    patch:
+      summary: Update user details
+      tags: [Users]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: User updated
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username: { type: string }
+        email: { type: string, format: email }
+        password: { type: string }
+    
+    LoginRequest:
+      type: object
+      properties:
+        username: { type: string }
+        password: { type: string }
+
+    TokenResponse:
+      type: object
+      properties:
+        token: { type: string }
+        expired_at: { type: string }
+
+    UpdateUserRequest:
+      type: object
+      required:
+        - old_password
+      properties:
+        username: { type: string }
+        email: { type: string, format: email }
+        password: { type: string }

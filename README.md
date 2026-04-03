@@ -1,109 +1,98 @@
 # GoXpress
-GoXpress provides an opinionated architecture for Go server projects, designed to facilitate rapid development of your API applications. It is bundled with variety of framework and packages to streamline your development process. While this setup is comprehensive, you are not required to utilize all included packages. Feel free to use this repository as a reference to tailor your project according to your specific needs.
+GoXpress provides an intuitive architecture for Go server projects, designed to facilitate rapid development of your API applications. It is bundled with variety of framework and packages to streamline your development process. While this setup is comprehensive, you are not required to utilize all included packages. Feel free to use this repository as a reference to tailor your project according to your specific needs.
+
 |Stack|Package|
 |-|-|
-|Go `v1.23.2`|Echo `v4.12.0`|
-|Postgres|Goose `v3.22.1`|
-|Docker|Gorm `v1.25.12`|
-||Air (Go Hot-Reload)|
+|Go `v1.25.0`|Echo `v5.1.0`|
+|Air `v1.64.5`|Gorm `v1.31.1`|
+|Postgres|EchoSwagger `v2.0.1`|
 
 ## Pre-Build Functions
-- [x] Makefile (Docker command, Migration command, Go command)
-- [x] Easy development/production enviroment setup (Env configs, Docker configs, Air configs)
-- [x] Go embeded assets (statics, templates)
-- [x] Home page, Register user page, Sample api schema page
-- [x] Api routes for user
-- [x] Initial User table
-- [x] Simple Jwt authentication
+- [x] Easy development with Air hot-reload
+- [x] Easy deployment with docker
+- [x] Gorm with postgres connection
+- [x] Initial user table and user model
+- [x] Request params validation
+- [x] Register/Login password encryption
+- [x] Simple Jwt auth token and authentication middleware
+- [x] Default homepage and auth & user routes
+- [x] Swagger api documentation (not auto generated)
 
 ## Getting started
 ### Installation
-1. Ensure that [Golang 1.23](https://go.dev/doc/install) and [Docker](https://www.docker.com/products/docker-desktop/) is installed on system.
+1. Ensure that [Golang 1.25.0](https://go.dev/doc/install) is installed on system.
 2. Go into project folder. (Linux Example: /www)
 ```sh
 cd wwww
-go run github.com/xncs120/goxpress@main project-name
+go run github.com/xncs120/goxpress@main project_name
 ```
 ### Setting up enviroment configs
 1. Modify .env as necessary to suit your configuration requirements. There are several important key:
--- APP_ENV accept "development" / "production".
--- JWT_SECRET accept string generated with 256BITS_HMAC_ALGO_HS256 format.
-2. Examine the air.toml and Docker configuration files to determine if any adjustments are needed for your specific setup.
-3. Launch the database and application service container (P.S: Start database first then app)
-```sh
-make docker-db-up
-make docker-app-up
-```
+2. APP_ENV accept "development" / "production".
+3. JWT_SECRET_KEY accept string generated with 256BITS_HMAC_ALGO_HS256 format.
 ### Migration
-1. Access into docker terminal and do users table migration using goose. The reason migration need to be executed manually in some cases because certain tables may be exceptionally large, making alterations time-consuming. This can significantly delay the application's deployment process. (P.S: Example of users table shown is pre-builded)
+1. Database migration is in /main.go > db.Migration() that is commented. Uncomment it to use Gorm auto migrate function.
+2. Remember to add any model struct to /db/migration.go whenever creating a new table for auto migrate to work.
+### Run api
+1. Go into generated project folder and run command below.
+2. Access on api browser http://localhost:8080/ after success.
 ```sh
-make goose-create add_users_table
-
-// go to example: ./goose/migrations/20241015105036_add_users_table.sql
-
--- +goose Up
-CREATE TABLE IF NOT EXISTS users(
-	id SERIAL PRIMARY KEY,
-	username TEXT UNIQUE NOT NULL,
-	email TEXT UNIQUE NOT NULL,
-	password TEXT NOT NULL,
-	status INTEGER NOT NULL DEFAULT 1,
-	created_at TIMESTAMP NULL
-);
-
--- +goose Down
-DROP TABLE IF EXISTS users;
-
-make goose-up
+cd project_name
+air -c air.toml
+```
+### Deploy with docker
+```sh
+# check did docker get .env values
+docker-compose --env-file .env config
+# build docker contianer
+docker compose --env-file .env up --build
 ```
 
-## Project layout
+## Project layout (Default)
 ```sh
-project/
-├── assets/
-│   ├── statics/
-│   │   └── styles.css
-│   ├── templates/
-│   │   └── index.html
-│   └── efs.go
-├── cmd/
-│   └── api/
-│       └── main.go
-├── goose/
-│   ├── migrations/
-│   └── seeders/
-├── internal/
-│   ├── base/
-│   │   ├── auth/
-│   │   │   └── auth.go
-│   │   ├── config/
-│   │   │   ├── config.go
-│   │   │   └── list.go
-│   │   ├── database/
-│   │   │   └── database.go
-│   │   ├── resource/
-│   │   │   └── resource.go
-│   │   └── routes/
-│   │       └── routes.go
-│   ├── landing/
-│   │   └── handlers.go
-│   └── user/
-│       ├── handlers.go
-│       └── model.go
-├── .env
+project_name/
+├── client/ (frontend js framework)
+├── config/
+│   ├── app.go
+│   ├── config.go
+│   └── database.go
+├── db/
+│   ├── db.go
+│   └── migration.go (auto migration)
+├── handlers/
+│   ├── auth.go
+│   ├── landing.go
+│   └── user.go
+├── internal/ (any important function)
+│   ├── request/
+│   │   └── validator.go
+│   └── security/
+│       ├── password.go
+│       └── token.go
+├── models/
+│   └── user.go (gorm struct or other gobal used struct)
+├── router/
+│   ├── api.go
+│   ├── router.go
+│   └── web.go
+├── server/
+│   └── main.go (server trigger)
+├── views/ (just embeded frontend)
+│   ├── docs.go (swagger documentation)
+│   │   └── root.yaml
+│   ├── efs.go
+│   └── index.html (homepage)
+├── .env (server config)
 ├── .gitignore
-├── air.toml
-├── docker-compose.yml
+├── air.toml (air config)
+├── docker-compose.yaml
 ├── Dockerfile
 ├── go.mod
-├── go.sum
-└── Makefile
+└── go.sum
 ```
 
 ## Reference and external source
-- [Organizing a Go module](https://go.dev/doc/modules/layout)
-- [Golang Documentation](https://go.dev/doc/effective_go)
-- [Echo Documentation](https://echo.labstack.com/)
-- [Goose Documentation](https://pressly.github.io/goose/)
-- [Gorm Documentation](https://gorm.io/docs/index.html)
 - [Air Documentation](https://github.com/air-verse/air)
+- [Echo Documentation](https://echo.labstack.com/)
+- [Gorm Documentation](https://gorm.io/docs/index.html)
+- [Echo Swagger Documentation](https://github.com/swaggo/echo-swagger)

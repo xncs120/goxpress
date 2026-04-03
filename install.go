@@ -10,7 +10,7 @@ import (
 
 var (
 	repoURL        = "https://github.com/xncs120/goxpress.git"
-	oldProjectName = "github.com/xncs120/goxpress"
+	oldProjectName = "goxpress"
 	removeList     = []string{
 		"install.go",
 		"LICENSE",
@@ -20,7 +20,7 @@ var (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run github.com/xncs120/goxpress@main project-name")
+		fmt.Println("Usage: go run github.com/xncs120/goxpress@main project_name")
 		os.Exit(1)
 	}
 	newProjectName := os.Args[1]
@@ -60,7 +60,7 @@ func scaffoldingFilesAndFolders(basePath string, removeList []string) error {
 			return err
 		}
 
-		if info.IsDir() && filepath.Base(path) == "assets" {
+		if info.IsDir() && filepath.Base(path) == "views/index.html" {
 			return filepath.SkipDir
 		}
 
@@ -83,13 +83,6 @@ func scaffoldingFilesAndFolders(basePath string, removeList []string) error {
 			contentStr := string(content)
 			if strings.Contains(contentStr, oldProjectName) {
 				replacedContent := strings.ReplaceAll(contentStr, oldProjectName, basePath)
-				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
-				if err != nil {
-					return err
-				}
-			}
-			if strings.Contains(contentStr, "APP_NAME=goxpress") {
-				replacedContent := strings.ReplaceAll(contentStr, "APP_NAME=goxpress", "APP_NAME="+basePath)
 				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
 				if err != nil {
 					return err

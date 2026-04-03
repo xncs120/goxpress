@@ -1,9 +1,9 @@
 root = "."
 
 [build]
-  bin = "./tmp/api/main"
-  cmd = "make build"
-  exclude_dir = ["assets", "tmp", "vendor", "logs", "goose"]
+  bin = "./tmp/main"
+  cmd = "go build -o ./tmp/main ./server/main.go"
+  exclude_dir = ["tmp", "client"]
   exclude_regex = ["_test.go"]
   include_ext = ["go", "tpl", "html"]
   delay = 1000
