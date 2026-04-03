@@ -14,10 +14,14 @@ func (r *Router) AddApiRoutes() {
 	api.POST("/register", authHandler.Register)
 	api.POST("/token", authHandler.Login)
 
+	authUserApi := api.Group("/auth-user")
+	authUserApi.Use(security.JWTAuthorization())
+	authUserApi.GET("", authHandler.GetAuthUser)
+	authUserApi.PATCH("", authHandler.UpdateAuthUser)
+
 	apiV1 := r.e.Group("/api/v1")
 	apiV1.Use(security.JWTAuthorization())
 
 	userApi := apiV1.Group("/users")
 	userApi.GET("/:id", userHandler.GetUser)
-	userApi.PATCH("/:id", userHandler.UpdateUser)
 }

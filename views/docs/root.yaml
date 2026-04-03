@@ -49,6 +49,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
 
+  /api/auth-user:
+    get:
+      summary: Get self details
+      tags: [Auth]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Self data retrieved
+    patch:
+      summary: Update self details
+      tags: [Auth]
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAuthUserRequest'
+      responses:
+        '200':
+          description: Self data updated
+
   /api/v1/users/{id}:
     get:
       summary: Get user by ID
@@ -64,25 +87,6 @@ paths:
       responses:
         '200':
           description: User data retrieved
-    patch:
-      summary: Update user details
-      tags: [Users]
-      security:
-        - BearerAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateUserRequest'
-      responses:
-        '200':
-          description: User updated
 
 components:
   securitySchemes:
@@ -115,11 +119,12 @@ components:
         token: { type: string }
         expired_at: { type: string }
 
-    UpdateUserRequest:
+    UpdateAuthUserRequest:
       type: object
       required:
         - old_password
       properties:
+        old_password: { type: string }
         username: { type: string }
         email: { type: string, format: email }
         password: { type: string }

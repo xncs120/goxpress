@@ -15,8 +15,8 @@ GoXpress provides an intuitive architecture for Go server projects, designed to 
 - [x] Initial user table and user model
 - [x] Request params validation
 - [x] Register/Login password encryption
-- [x] Simple Jwt auth token and authentication middleware
-- [x] Default docs page and auth & user routes
+- [x] Simple Jwt bearer token and authentication middleware
+- [x] Default docs page and auth & sample user routes
 - [x] Swagger api documentation (not auto generated)
 - [x] Simple docker containerize
 
