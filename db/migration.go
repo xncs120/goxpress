@@ -1,7 +1,7 @@
 package db
 
 import (
-	"goxpress/models"
+	"github.com/xncs120/goxpress/models"
 )
 
 func (db *DB) Migration() {

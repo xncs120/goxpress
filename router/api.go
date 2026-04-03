@@ -1,8 +1,8 @@
 package router
 
 import (
-	"goxpress/handlers"
-	"goxpress/internal/security"
+	"github.com/xncs120/goxpress/handlers"
+	"github.com/xncs120/goxpress/internal/security"
 )
 
 func (r *Router) AddApiRoutes() {

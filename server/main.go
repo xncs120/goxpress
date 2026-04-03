@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	"goxpress/config"
-	"goxpress/db"
-	"goxpress/internal/request"
-	"goxpress/router"
+	"github.com/xncs120/goxpress/config"
+	"github.com/xncs120/goxpress/db"
+	"github.com/xncs120/goxpress/internal/request"
+	"github.com/xncs120/goxpress/router"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v5"

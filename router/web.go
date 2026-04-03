@@ -4,8 +4,8 @@ import (
 	"html/template"
 	"io"
 
-	"goxpress/handlers"
-	"goxpress/views"
+	"github.com/xncs120/goxpress/handlers"
+	"github.com/xncs120/goxpress/views"
 
 	"github.com/labstack/echo/v5"
 	echoSwagger "github.com/swaggo/echo-swagger/v2"

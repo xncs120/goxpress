@@ -3,7 +3,7 @@ package security
 import (
 	"time"
 
-	"goxpress/config"
+	"github.com/xncs120/goxpress/config"
 
 	"github.com/golang-jwt/jwt/v5"
 	echojwt "github.com/labstack/echo-jwt/v5"

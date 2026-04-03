@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
-	"goxpress/config"
-	"goxpress/internal/security"
-	"goxpress/models"
+	"github.com/xncs120/goxpress/config"
+	"github.com/xncs120/goxpress/internal/security"
+	"github.com/xncs120/goxpress/models"
 
 	"github.com/labstack/echo/v5"
 	"gorm.io/gorm"
