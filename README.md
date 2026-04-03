@@ -35,7 +35,7 @@ go run github.com/xncs120/goxpress@main project_name
 ### Migration
 1. Database migration is in /main.go > db.Migration() that is commented. Uncomment it to use Gorm auto migrate function.
 2. Remember to add any model struct to /db/migration.go whenever creating a new table for auto migrate to work.
-### Run api
+### Serve api
 1. Go into generated project folder and run command below.
 2. Access on api browser http://localhost:8080/ or http://localhost:8080/docs after success.
 3. The docs page title wont change to project_name, feel free to admend it in /views/index.html.
