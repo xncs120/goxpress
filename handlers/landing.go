@@ -1,7 +1,10 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
+
+	"github.com/xncs120/goxpress/config"
 
 	"github.com/labstack/echo/v5"
 )
@@ -11,5 +14,5 @@ func HomeDoc(c *echo.Context) error {
 }
 
 func Index(c *echo.Context) error {
-	return c.JSON(http.StatusOK, "goxpress api is running")
+	return c.JSON(http.StatusOK, fmt.Sprintf("%s api is running", config.App.Name))
 }
