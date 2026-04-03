@@ -6,6 +6,7 @@ GoXpress provides an intuitive architecture for Go server projects, designed to 
 |Go `v1.25.0`|Echo `v5.1.0`|
 |Air `v1.64.5`|Gorm `v1.31.1`|
 |Postgres|EchoSwagger `v2.0.1`|
+|Docker||
 
 ## Pre-Build Functions
 - [x] Easy development with Air hot-reload
@@ -15,8 +16,9 @@ GoXpress provides an intuitive architecture for Go server projects, designed to 
 - [x] Request params validation
 - [x] Register/Login password encryption
 - [x] Simple Jwt auth token and authentication middleware
-- [x] Default homepage and auth & user routes
+- [x] Default docs page and auth & user routes
 - [x] Swagger api documentation (not auto generated)
+- [x] Simple docker containerize
 
 ## Getting started
 ### Installation
@@ -35,7 +37,8 @@ go run github.com/xncs120/goxpress@main project_name
 2. Remember to add any model struct to /db/migration.go whenever creating a new table for auto migrate to work.
 ### Run api
 1. Go into generated project folder and run command below.
-2. Access on api browser http://localhost:8080/ after success.
+2. Access on api browser http://localhost:8080/ or http://localhost:8080/docs after success.
+3. The docs page title wont change to project_name, feel free to admend it in /views/index.html.
 ```sh
 cd project_name
 air -c air.toml
@@ -77,7 +80,7 @@ project_name/
 │   └── web.go
 ├── server/
 │   └── main.go (server trigger)
-├── views/ (just embeded frontend)
+├── views/ (frontend html)
 │   ├── docs.go (swagger documentation)
 │   │   └── root.yaml
 │   ├── efs.go
