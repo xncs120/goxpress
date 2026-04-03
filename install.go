@@ -61,8 +61,8 @@ func scaffoldingFilesAndFolders(basePath string, removeList []string) error {
 			return err
 		}
 
-		if info.IsDir() && filepath.Base(path) == "views/index.html" {
-			return filepath.SkipDir
+		if !info.IsDir() && strings.HasSuffix(filepath.ToSlash(path), "views/index.html") {
+			return nil
 		}
 
 		relPath, _ := filepath.Rel(basePath, path)
@@ -82,16 +82,11 @@ func scaffoldingFilesAndFolders(basePath string, removeList []string) error {
 			}
 
 			contentStr := string(content)
-			if strings.Contains(contentStr, oldProjectName) {
-				replacedContent := strings.ReplaceAll(contentStr, oldProjectName, basePath)
-				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
-				if err != nil {
-					return err
-				}
-			}
-			if strings.Contains(contentStr, "goxpress") {
-				replacedContent := strings.ReplaceAll(contentStr, "goxpress", basePath)
-				err := os.WriteFile(path, []byte(replacedContent), info.Mode())
+			original := contentStr
+			contentStr = strings.ReplaceAll(contentStr, oldProjectName, basePath)
+			contentStr = strings.ReplaceAll(contentStr, "goxpress", basePath)
+			if contentStr != original {
+				err := os.WriteFile(path, []byte(contentStr), info.Mode())
 				if err != nil {
 					return err
 				}
