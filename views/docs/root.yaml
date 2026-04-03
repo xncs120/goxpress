@@ -98,20 +98,23 @@ components:
   schemas:
     RegisterRequest:
       type: object
-      required:
-        - username
-        - email
-        - password
       properties:
         username: { type: string }
         email: { type: string, format: email }
         password: { type: string }
+      required:
+        - username
+        - email
+        - password
     
     LoginRequest:
       type: object
       properties:
         username: { type: string }
         password: { type: string }
+      required:
+        - username
+        - password
 
     TokenResponse:
       type: object
@@ -121,10 +124,10 @@ components:
 
     UpdateAuthUserRequest:
       type: object
-      required:
-        - old_password
       properties:
         old_password: { type: string }
         username: { type: string }
         email: { type: string, format: email }
         password: { type: string }
+      required:
+        - old_password
