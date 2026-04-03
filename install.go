@@ -37,6 +37,7 @@ func main() {
 		fmt.Printf("\tError cloning repository: %v\n", err)
 		os.Exit(1)
 	}
+	os.RemoveAll(filepath.Join(newProjectName, ".git"))
 
 	fmt.Println("=> Scaffolding files and folders")
 	if err := scaffoldingFilesAndFolders(newProjectName, removeList); err != nil {
