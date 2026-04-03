@@ -32,6 +32,7 @@ go run github.com/xncs120/goxpress@main project_name
 1. Modify .env as necessary to suit your configuration requirements. There are several important key:
 2. APP_ENV accept "development" / "production".
 3. JWT_SECRET_KEY accept string generated with 256BITS_HMAC_ALGO_HS256 format.
+4. DB_URL accept string for database connection (postgres). For other database support please visit gorm documentation.
 ### Migration
 1. Database migration is in /main.go > db.Migration() that is commented. Uncomment it to use Gorm auto migrate function.
 2. Remember to add any model struct to /db/migration.go whenever creating a new table for auto migrate to work.
